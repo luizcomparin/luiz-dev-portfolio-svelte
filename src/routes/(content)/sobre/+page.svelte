@@ -16,6 +16,8 @@
 	import mysqlIcon from '@iconify/icons-devicon/mysql'
 	import pythonIcon from '@iconify/icons-devicon/python'
 	import nextjsIcon from '@iconify/icons-logos/nextjs-icon'
+	import { fly } from 'svelte/transition'
+	import { cubicIn } from 'svelte/easing'
 
 	let idade = 22
 
@@ -66,11 +68,12 @@
 	}
 </script>
 
-<section class="overflow-y-scroll gap-12 flex flex-col dmy-12 drop-shadow-2xl h-full">
-	<h1>Tecnologias proficientes</h1>
+<section class=" mb-[60px] md:mb-0 flex flex-col overflow-y-scroll gap-12 drop-shadow-2xl pr-4 lg:max-h-full">
+	<h1 class="!mb-0">Tecnologias proficientes</h1>
 	<div class="flex flex-col gap-8 px-4 text-4xl">
-		<div class="flex gap-3">
-			<div data-tooltip="Angular"><Icon icon={angularIcon} /></div>
+		<h2 class="!mt-0">Front-end</h2>
+		<div class="flex gap-3 flex-wrap">
+			<div data-tooltip="Angular 2+"><Icon icon={angularIcon} /></div>
 			<div data-tooltip="SvelteKit"><Icon icon={svelteIcon} /></div>
 			<div data-tooltip="React"><Icon icon={reactIcon} /></div>
 			<div data-tooltip="Next.js"><Icon icon={nextjsIcon} /></div>
@@ -79,6 +82,7 @@
 			<div data-tooltip="HTML 5"><Icon icon={html5Icon} /></div>
 			<div data-tooltip="CSS 3"><Icon icon={css3Icon} /></div>
 		</div>
+		<h2>Back-end</h2>
 		<div class="flex gap-3">
 			<div data-tooltip="Node.js"><Icon icon={nodedotjsIcon} /></div>
 			<div data-tooltip="Express.js"><Icon icon={expressIcon} /></div>
@@ -141,21 +145,21 @@
 				<h2 class="flex flex-row gap-3 items-center">
 					Grupo ATOM
 					<div class="flex flex-row items-center gap-1">
-						<div data-tooltip="Angular 14"><Icon icon={angularIcon} class="text-lg" /></div>
+						<div data-tooltip="Angular&nbsp;14"><Icon icon={angularIcon} class="text-lg" /></div>
 					</div>
 				</h2>
 				<p>
 					Fui responsável pela criação de algumas páginas utilizando Angular, HTML e CSS. Nessa empresa, pude
 					aprender e praticar muito de <span>TypeScript, Angular 14, HTML e CSS</span>.
 				</p>
+				<h2 class="flex flex-row gap-3 items-center">
+					Navalha App
+					<div class="flex flex-row items-center gap-1">
+						<div data-tooltip="Angular 15"><Icon icon={angularIcon} class="text-lg" /></div>
+					</div>
+				</h2>
 			</div>
 
-			<h2 class="flex flex-row gap-3 items-center">
-				Navalha App
-				<div class="flex flex-row items-center gap-1">
-					<div data-tooltip="Angular 15"><Icon icon={angularIcon} class="text-lg" /></div>
-				</div>
-			</h2>
 			<p>
 				Fiquei inteiramente responsável pela criação do front-end para um aplicativo de barbearias. O projeto
 				iniciou-se como uma landing page, mas logo se expandiu para um sistema de confirmação de agendamentos
@@ -203,7 +207,7 @@
 
 <style>
 	h1 {
-		@apply mb-4 text-3xl font-light;
+		@apply mb-4 text-3xl text-[1.875em] font-light;
 	}
 
 	h2 {

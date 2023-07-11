@@ -3,8 +3,13 @@
 	import paperPlane from '@iconify/icons-fa/paper-plane'
 	import copyIcon from '@iconify/icons-fa/copy'
 	import linkedinIcon from '@iconify/icons-mdi/linkedin'
-	import CopyClipBoard from '../../lib/utils/CopyClipboard.svelte'
-	import { onMount } from 'svelte'
+	import CopyClipBoard from '../../../lib/utils/CopyClipboard.svelte'
+	import whatsappIcon from '@iconify/icons-mdi/whatsapp'
+	import emailOutline from '@iconify/icons-mdi/email-outline'
+	import checkIcon from '@iconify/icons-mdi/check'
+	import openInNew from '@iconify/icons-mdi/open-in-new'
+	import { fly } from 'svelte/transition'
+	import { cubicIn } from 'svelte/easing'
 
 	let whatsappCopy: HTMLElement
 	let emailCopy: HTMLElement
@@ -40,13 +45,15 @@
 	}
 </script>
 
-<section class="flex flex-col -translate-y-8 gap-12 justify-center">
-	<div id="emailClipboard" />
-	<div id="whatsappClipboard" />
-	<h1 class="text-4xl">Contate-me pelos meios abaixo:</h1>
+<div id="emailClipboard" />
+<div id="whatsappClipboard" />
+<section class=" mb-[60px] md:mb-0 overflow-x-hidden w-full flex flex-col lg:-translate-y-8 gap-12">
+	<div>
+		<h1 class="text-4xl text-[2.25em]">Formas de contato</h1>
+	</div>
 
 	<div>
-		<h2>E-mail</h2>
+		<h2 class="flex items-center gap-1"><Icon icon={emailOutline} />E-mail</h2>
 		<div class="flex w-fit gap-1d items-center">
 			<a href="mailto:luizcomparin18@gmail.com" target="_blank" class="pr-2 borderd rounded-l-md hover:underline"
 				>luizcomparin18@gmail.com</a>
@@ -64,15 +71,16 @@
 				<Icon icon={copyIcon} class="transition-all group-hover:scale-125" />
 				<div
 					bind:this={emailCopy}
-					class="absolute opacity-0 transition-all pointer-events-none top-full -left-1/2 -translate-x-1 mt-1 rounded-md px-2 py-1 text-sm bg-black">
-					Copiado!
+					class="absolute w-fit whitespace-nowrap flex items-center gap-1 opacity-0 transition-all pointer-events-none h-fit left-full top-0 bottom-0 my-auto d-translate-x-1 rounded-md px-2 py-1 text-sm bg-black">
+					<Icon icon={checkIcon} class="text-xl" />
+					E-mail copiado!
 				</div>
 			</button>
 		</div>
 	</div>
 
 	<div class="">
-		<h2>Whatsapp</h2>
+		<h2 class="flex items-center gap-1"><Icon icon={whatsappIcon} />Whatsapp</h2>
 		<div class="flex w-fit gap-4d items-center">
 			<a href="https://wa.me/5547992831801" target="_blank" class="pr-2 hover:underline">(47) 9 9283-1801</a>
 			<a
@@ -89,21 +97,22 @@
 				<Icon icon={copyIcon} class="transition-all group-hover:scale-125" />
 				<div
 					bind:this={whatsappCopy}
-					class="absolute opacity-0 transition-all pointer-events-none top-full -left-1/2 -translate-x-1 mt-1 rounded-md px-2 py-1 text-sm bg-black">
-					Copiado!
+					class="absolute w-fit whitespace-nowrap flex items-center gap-1 opacity-0 transition-all pointer-events-none h-fit left-full top-0 bottom-0 my-auto d-translate-x-1 rounded-md px-2 py-1 text-sm bg-black">
+					<Icon icon={checkIcon} class="text-xl" />
+					Whatsapp copiado!
 				</div>
 			</button>
 		</div>
 	</div>
 
 	<div>
-		<h2>LinkedIn</h2>
+		<h2 class="flex items-center gap-1"><Icon icon={linkedinIcon} />LinkedIn</h2>
 		<a
 			href="https://www.linkedin.com/in/luiz-carlos-comparin/"
 			target="_blank"
 			class="flex gap-1 items-center hover:underline group">
 			<p>Luiz Carlos Comparin</p>
-			<Icon icon={linkedinIcon} class="text-lg transition-all group-hover:scale-125" />
+			<Icon icon={openInNew} class="transition-all" />
 		</a>
 	</div>
 </section>

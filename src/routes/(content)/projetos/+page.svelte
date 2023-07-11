@@ -6,6 +6,8 @@
 	import expressIcon from '@iconify/icons-simple-icons/express'
 	import svelteIcon from '@iconify/icons-simple-icons/svelte'
 	import firebaseIcon from '@iconify/icons-simple-icons/firebase'
+	import { fly } from 'svelte/transition'
+	import { cubicIn } from 'svelte/easing'
 
 	const pages = [
 		{
@@ -44,17 +46,25 @@
 	]
 </script>
 
-<section class="flex flex-col items-center justify-center mx-auto ml-20 gap-6">
+<section
+	class=" mb-[60px] md:mb-0 flex flex-col overflow-y-scroll h-full lg:mt-32 lg:pb-12 lg:-translate-y-8 w-screen max-w-[900px] gap-6">
+	<div>
+		<h1 class="text-4xl text-[2.25em] mr-auto">Projetos</h1>
+		<h2>
+			Estes são meus projetos reais. Clique no <Icon icon={informationVariant} class="text-xl inline-block" /> em cada
+			projeto para saber mais.
+		</h2>
+	</div>
 	{#each pages as page}
-		<div class="flex relative">
+		<div class="flex flex-col 2xl:flex-row w-fit relative">
 			<a
 				href={page.href}
 				target="_blank"
-				class="relative group rounded-xl bg-port-bg shadow-xl hover:shadow-2xl transition-all z-10">
+				class="relative group rounded-xl w-fitd bg-port-bg shadow-xl hover:shadow-2xl transition-all z-10">
 				<img
 					src={page.image_src}
 					alt={page.title}
-					class="w-[580px] h-[270px] rounded-xl rounded-tr-lg transition-all opacity-90 hover:opacity-100" />
+					class="max-w-[580px] w-full h-full flex max-h-[270px] object-cover rounded-xl rounded-tr-lg transition-all opacity-90 hover:opacity-100" />
 				<div
 					class="absolute flex gap-1 items-center bottom-0 transition-all opacity-0 group-hover:opacity-100 text-slate-200/90 text-xs rounded-lg rounded-tl-none rounded-br-none bg-black/40 px-4 py-[2px]">
 					{page.href}
@@ -62,9 +72,11 @@
 				</div>
 			</a>
 			<!-- info hover -->
-			<div class="absolute peer flex top-1 transition-all duration-300 left-[calc(100%-270px)] hover:left-full">
+			<div
+				class="2xl:absolute peer ml-2 2xl:ml-0 group flex transition-all duration-300 dtop-full 2xl:top-1 2xl:left-[calc(100%-270px)] 2xl:hover:left-full">
 				<!-- info box -->
-				<div class="flex flex-col w-[270px] p-4 gap-4 rounded-br-lg bg-black/40">
+				<div
+					class="flex flex-col transition-all duration-300 w-[0px] max-h-[0px] group-hover:max-h-[180px] 2xl:w-[270px] overflow-hidden group-hover:w-[270px] group-hover:p-4 2xl:p-4 gap-4 rounded-bl-lg 2xl:rounded-bl-none rounded-br-lg bg-black/40">
 					<div class="flex flex-col gap-2">
 						<p class="">{page.title}</p>
 						<p class="text-sm">{page.project_info}</p>
@@ -79,7 +91,8 @@
 					</div>
 				</div>
 				<!-- info icon -->
-				<div class="bg-black/40 p-2 h-fit rounded-r-lg">
+				<div
+					class="bg-black/40 p-2 h-fit 2xl:rounded-r-lg rounded-b-lg 2xl:rounded-bl-none group-hover:rounded-bl-none">
 					<div class="info-animation">
 						<Icon icon={informationVariant} class="text-xl text-slate-200/80" />
 					</div>
@@ -87,7 +100,7 @@
 			</div>
 			<!-- esparadrapo -->
 			<div
-				class="absolute z-30 transition-all duration-300 bg-white/50d w-[36px] h-[130px] top-[40px] left-full peer-hover:left-[calc(100%+270px)]" />
+				class="absolute flex z-30 transition-all duration-300 bg-white/50d h-[36px] w-[calc(100%-36px)] peer-hover:w-1/2 2xl:peer-hover:w-[36px] right-0 bottom-0 group-hover:w-[36px] group-hover:h-[130px] 2xl:h-[130px] 2xl:w-[36px] 2xl:top-[40px] 2xl:left-full 2xl:peer-hover:left-[calc(100%+270px)]" />
 		</div>
 	{/each}
 </section>
@@ -108,14 +121,16 @@
 
 	@keyframes info-swing {
 		0%,
-		30%,
+		/* 40%, */
 		100% {
 			transform: rotate(0deg);
+			scale: 100%;
 			/* transform-origin: 50% 50%; */
 		}
 
 		5% {
 			transform: rotate(-20deg);
+			scale: 130%;
 		}
 
 		10% {
@@ -128,10 +143,15 @@
 
 		20% {
 			transform: rotate(15deg);
+			scale: 130%;
 		}
 
 		25% {
 			transform: rotate(5deg);
+		}
+
+		30% {
+			transform: rotate(0deg);
 		}
 	}
 </style>

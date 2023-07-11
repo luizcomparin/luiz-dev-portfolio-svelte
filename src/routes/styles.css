@@ -11,6 +11,8 @@ html {
 	/* font-family: 'Red Hat Display', sans-serif; */
 	/* font-family: 'Archivo Black', sans-serif; */
 	font-family: 'Archivo', sans-serif;
+	visibility: visible;
+	opacity: 1;
 }
 
   /* #SCROLLBAR CONFIG */
@@ -44,17 +46,20 @@ html {
 
   [data-tooltip]:before,
   [data-tooltip]:after {
+	position: absolute;
+	/* top: 100%; */
+	bottom: 120%;
 	visibility: hidden;
+	z-index: 1000;
 	opacity: 0;
 	pointer-events: none;
 	  transition: .1s ease-out;
-	  transform: translate(-50%, 5px)
+	  transform: translate(-50%, 5px);
   }
   /* tooltip box */
   [data-tooltip]:before {
-	position: absolute;
-	top: 100%;
 	left: 50%;
+	/* top: 50%; */
 	/* margin-top: 5px; */
 	padding: 7px;
 	  width: fit-content;
@@ -63,7 +68,7 @@ html {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	background-color: #00000099;
+	background-color: #000000;
 	/* background-color: hsla(0, 0%, 10%, 0.9); */
 	color: #fff;
 	content: attr(data-tooltip);
@@ -75,18 +80,17 @@ html {
   }
   /* tooltip arrow */
   [data-tooltip]:after {
-	position: absolute;
-	top: 100%;
-	left: 40%;
+	left: 60%;
+	bottom: 105%;
 	width: 0;
-	border-top: 5px solid #00000099;
+	border-top: 5px solid #000000;
 	/* border-top: 5px solid hsla(0, 0%, 20%, 0.9); */
 	border-right: 5px solid transparent;
 	border-left: 5px solid transparent;
 	content: " ";
 	font-size: 0;
 	line-height: 0;
-	transform: rotateZ(180deg);
+	/* transform: rotateZ(180deg); */
   }
 
   [data-tooltip]:hover:before,
