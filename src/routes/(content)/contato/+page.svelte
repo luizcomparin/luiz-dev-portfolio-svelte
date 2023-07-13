@@ -45,6 +45,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Luiz Comparin - Contato</title>
+</svelte:head>
+
 <div id="emailClipboard" />
 <div id="whatsappClipboard" />
 <section class=" mb-[60px] md:mb-0 overflow-x-hidden w-full flex flex-col lg:-translate-y-8 gap-12">

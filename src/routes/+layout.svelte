@@ -6,7 +6,7 @@
 	import altArrowRightLinear from '@iconify/icons-solar/alt-arrow-right-linear'
 	import { page } from '$app/stores'
 	import { fly, slide } from 'svelte/transition'
-	import { cubicIn } from 'svelte/easing'
+	import openInNew from '@iconify/icons-mdi/open-in-new'
 	import { onMount } from 'svelte'
 
 	export let data
@@ -271,6 +271,12 @@
 						<!-- github -->
 						<a target="_blank" href="https://github.com/luizcomparin"
 							><Icon icon={githubIcon} class="transition-all hover:text-slate-200" /></a>
+						<!-- curriculo -->
+						<a
+							data-tooltip="Currículo"
+							target="_blank"
+							href="https://docs.google.com/document/d/1SGo5bznVNbYAvXdWRFAjr6bvMsN9NdIJ/edit?usp=sharing&ouid=116223724619846332888&rtpof=true&sd=true"
+							><Icon icon={openInNew} class="transition-all hover:text-slate-200" /></a>
 					</div>
 				</div>
 			</div>

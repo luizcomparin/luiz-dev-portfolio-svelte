@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "vite dev --port 8888",
 		"build": "vite build",
-		"fd": "npm run build && firebase deploy",
+		"bf": "npm run build && firebase deploy",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

@@ -68,6 +68,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Luiz Comparin - Sobre</title>
+</svelte:head>
+
 <section class=" mb-[60px] md:mb-0 flex flex-col overflow-y-scroll gap-12 drop-shadow-2xl pr-4 lg:max-h-full">
 	<h1 class="!mb-0">Tecnologias proficientes</h1>
 	<div class="flex flex-col gap-8 px-4 text-4xl">
@@ -102,8 +106,8 @@
 			style="max-height:{sobreMaxHeight}px">
 			<div id="sobreMain" bind:this={sobreMainElement}>
 				<p>
-					Foi-me dado o nome de Luiz Carlos Comparin, estou vivo há {idade} anos, e programando profissionalmente
-					desde agosto de 2022. Perfeccionista, gosto de deixar tudo funcionando em perfeita ordem e almejo excelência
+					Foi-me dado o nome de Luiz Carlos Comparin, vivo há {idade} anos, e programando profissionalmente desde
+					agosto de 2022. Perfeccionista, gosto de deixar tudo funcionando em perfeita ordem e almejo excelência
 					em meus projetos.
 				</p>
 				<p>
@@ -228,10 +232,5 @@
 		border-radius: 0.125rem;
 		padding-left: 2px;
 		padding-right: 2px;
-	}
-
-	.title-wrapper {
-		margin-top: 3rem;
-		margin-bottom: 1rem;
 	}
 </style>

@@ -11,11 +11,11 @@
 
 	const pages = [
 		{
-			href: 'https://www.navalhatech.com.br/',
+			href: 'https://navalha.app.br/',
 			image_src: '/images/home-page-print.png',
 			title: 'Navalha app',
 			project_info:
-				'Website desenvolvido para servir como landing page e plataforma de confirmação de agendamentos para o aplicativo Navalha.',
+				'PWA desenvolvido para servir como landing page e plataforma de confirmação de agendamentos para o aplicativo Navalha.',
 			icons: [
 				{
 					tooltip: 'Angular 15',
@@ -28,10 +28,10 @@
 			],
 		},
 		{
-			href: 'https://www.navalhatech.com.br/',
+			href: '/projetos',
 			image_src: '/images/lambreta-rental-print.png',
 			title: 'Lambreta Rental',
-			project_info: 'Site em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.',
+			project_info: 'Website em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.',
 			icons: [
 				{
 					tooltip: 'SvelteKit',
@@ -45,6 +45,10 @@
 		},
 	]
 </script>
+
+<svelte:head>
+	<title>Luiz Comparin - Projetos</title>
+</svelte:head>
 
 <section
 	class=" mb-[60px] md:mb-0 flex flex-col overflow-y-scroll h-full lg:mt-32 lg:pb-12 lg:-translate-y-8 w-screen max-w-[900px] gap-6">
@@ -66,8 +70,11 @@
 					alt={page.title}
 					class="max-w-[580px] w-full h-full flex max-h-[270px] object-cover rounded-xl rounded-tr-lg transition-all opacity-90 hover:opacity-100" />
 				<div
-					class="absolute flex gap-1 items-center bottom-0 transition-all opacity-0 group-hover:opacity-100 text-slate-200/90 text-xs rounded-lg rounded-tl-none rounded-br-none bg-black/40 px-4 py-[2px]">
-					{page.href}
+					class="absolute flex gap-1 w-auto items-center bottom-0 transition-all opacity-0d dgroup-hover:opacity-100 text-slate-200/90 text-xs rounded-lg rounded-tl-none rounded-br-none bg-black/40 px-4 py-[2px]">
+					<div class="w-[0px]d overflow-hidden flex group-hover: w-full transition-all">
+						{page.href}
+					</div>
+
 					<Icon icon={openInNew} />
 				</div>
 			</a>
@@ -76,7 +83,7 @@
 				class="2xl:absolute peer ml-2 2xl:ml-0 group flex transition-all duration-300 dtop-full 2xl:top-1 2xl:left-[calc(100%-270px)] 2xl:hover:left-full">
 				<!-- info box -->
 				<div
-					class="flex flex-col transition-all duration-300 w-[0px] max-h-[0px] group-hover:max-h-[180px] 2xl:w-[270px] overflow-hidden group-hover:w-[270px] group-hover:p-4 2xl:p-4 gap-4 rounded-bl-lg 2xl:rounded-bl-none rounded-br-lg bg-black/40">
+					class="flex flex-col transition-all duration-300 w-[0px] max-h-[0px] group-hover:max-h-[180px] 2xl:max-h-[180px] 2xl:w-[270px] overflow-hidden group-hover:w-[270px] group-hover:p-4 2xl:p-4 gap-4 rounded-bl-lg 2xl:rounded-bl-none rounded-br-lg bg-black/40">
 					<div class="flex flex-col gap-2">
 						<p class="">{page.title}</p>
 						<p class="text-sm">{page.project_info}</p>
