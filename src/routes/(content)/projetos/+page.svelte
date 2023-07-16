@@ -28,7 +28,7 @@
 			],
 		},
 		{
-			href: '/projetos',
+			href: 'https://lambreta-rental-svelte.web.app/',
 			image_src: '/images/lambreta-rental-print.png',
 			title: 'Lambreta Rental',
 			project_info: 'Website em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.',
@@ -85,16 +85,21 @@
 				<div
 					class="flex flex-col transition-all duration-300 w-[0px] max-h-[0px] group-hover:max-h-[180px] 2xl:max-h-[180px] 2xl:w-[270px] overflow-hidden group-hover:w-[270px] group-hover:p-4 2xl:p-4 gap-4 rounded-bl-lg 2xl:rounded-bl-none rounded-br-lg bg-black/40">
 					<div class="flex flex-col gap-2">
-						<p class="">{page.title}</p>
+						<p>{page.title}</p>
 						<p class="text-sm">{page.project_info}</p>
 					</div>
 					<!-- tech stack -->
-					<div class="flex gap-2 text-xl text-slate-200/80">
+					<div class="flex relative gap-2 text-xl text-slate-200/80">
 						{#each page.icons as icon}
 							<span data-tooltip={icon.tooltip} class=" hover:text-slate-200">
 								<Icon icon={icon.icon_html} />
 							</span>
 						{/each}
+
+						{#if pages[1].title === page.title}
+							<span class="absolute text-xs font-semibold bottom-[1.2rem]d left-[4.25rem] text-[crimson]"
+								>em desenvolvimento</span>
+						{/if}
 					</div>
 				</div>
 				<!-- info icon -->
@@ -107,7 +112,7 @@
 			</div>
 			<!-- esparadrapo -->
 			<div
-				class="absolute flex z-30 transition-all duration-300 bg-white/50d h-[36px] w-[calc(100%-36px)] peer-hover:w-1/2 2xl:peer-hover:w-[36px] right-0 bottom-0 group-hover:w-[36px] group-hover:h-[130px] 2xl:h-[130px] 2xl:w-[36px] 2xl:top-[40px] 2xl:left-full 2xl:peer-hover:left-[calc(100%+270px)]" />
+				class="absolute flex z-30 transition-all duration-300 bg-white/50d h-[36px] w-[calc(100%-45px)] peer-hover:w-1/2 2xl:peer-hover:w-[36px] right-0 bottom-0 group-hover:w-[45px] group-hover:h-[130px] 2xl:h-[130px] 2xl:w-[36px] 2xl:top-[40px] 2xl:left-full 2xl:peer-hover:left-[calc(100%+270px)]" />
 		</div>
 	{/each}
 </section>

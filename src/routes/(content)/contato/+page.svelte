@@ -52,8 +52,9 @@
 <div id="emailClipboard" />
 <div id="whatsappClipboard" />
 <section class=" mb-[60px] md:mb-0 overflow-x-hidden w-full flex flex-col lg:-translate-y-8 gap-12">
-	<div>
+	<div class="flex flex-col gap-1">
 		<h1 class="text-4xl text-[2.25em]">Formas de contato</h1>
+		<h2 class="!text-base">Sinta-se livre para me chamar por qualquer um dos meios abaixo, a qualquer hora:</h2>
 	</div>
 
 	<div>
