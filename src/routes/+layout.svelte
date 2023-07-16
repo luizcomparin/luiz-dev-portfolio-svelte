@@ -14,8 +14,6 @@
 
 	let absoluteElementWrapper: HTMLElement
 	let relativeElementWrapper: HTMLElement
-	$: absoluteWidth = absoluteElementWrapper?.clientWidth
-	$: relativeWidth = relativeElementWrapper?.clientWidth
 
 	let lastRoute = data.url
 	let currentRoute = data.url
@@ -23,12 +21,15 @@
 	let headerElem: HTMLElement
 	let titleElem: HTMLElement
 	let navbarElem: HTMLElement
+	let screenSize: number
+
+	// $: console.log('Condition evaluated:', screenSize, screenSize < 768)
 
 	onMount(() => {
 		page.subscribe(page => {
 			currentRoute = page.url.pathname
 
-			if (window.innerWidth >= 1024) {
+			if (screenSize >= 1024) {
 				// pra cima
 				if (lastRoute === '/' && currentRoute !== '/') {
 					// let animation = headerElem?.animate([{ translate: `430px` }, { translate: '0px' }], {
@@ -37,14 +38,6 @@
 						fill: 'forwards',
 						easing: 'ease-out',
 					})
-
-					// setTimeout(() => {
-					// updateNavbar()
-					// navbarItems = fullNavbarItems
-					// }, 399)
-				} else if (currentRoute === '/') {
-					// navbarItems = navbarWithoutHome
-					// updateNavbar()
 				}
 
 				// centraliza
@@ -59,12 +52,9 @@
 						animation.cancel()
 					}, 699)
 				}
-				updateNavbar()
-
-				lastRoute = page.url.pathname
 			}
 
-			if (window.innerWidth < 1024) {
+			if (screenSize < 1024) {
 				// pra cima
 				if (lastRoute === '/' && currentRoute !== '/') {
 					// let animation = headerElem?.animate([{ translate: `430px` }, { translate: '0px' }], {
@@ -77,25 +67,16 @@
 						}
 					)
 
-					// updateNavbar()
 					setTimeout(() => {
 						headerElem.classList.remove('flex-col')
 						titleElem.classList.add('w-full', 'mr-auto')
 						titleElem.classList.remove('mb-10')
-
-						// navbarElem.classList.remove('translate-x-[-40px]')
-						// navbarItems = fullNavbarItems
 					}, 399)
 				} else if (currentRoute === '/') {
 					headerElem.classList.add('translate-y-[250px]')
-
 					headerElem.classList.add('flex-col')
 					titleElem.classList.remove('w-full', 'mr-auto')
 					titleElem.classList.add('mb-10')
-
-					// updateNavbar()
-					// if (window.innerWidth >= 768) navbarElem.classList.add('translate-x-[-40px]')
-					// navbarItems = navbarWithoutHome
 				}
 
 				// centraliza
@@ -115,15 +96,16 @@
 						titleElem.classList.add('mb-10')
 					}, 699)
 				}
-				updateNavbar()
-
-				lastRoute = page.url.pathname
 			}
+
+			updateNavbar()
+
+			lastRoute = page.url.pathname
 		})
 	})
 
 	function updateNavbar() {
-		if (window.innerWidth >= 1024) {
+		if (screenSize >= 1024) {
 			if (lastRoute === '/' && currentRoute !== '/') {
 				setTimeout(() => {
 					navbarItems = fullNavbarItems
@@ -133,14 +115,14 @@
 			}
 		}
 
-		if (window.innerWidth < 1024) {
+		if (screenSize < 1024) {
 			if (lastRoute === '/' && currentRoute !== '/') {
 				setTimeout(() => {
 					navbarElem.classList.remove('translate-x-[-40px]')
 					navbarItems = fullNavbarItems
 				}, 399)
 			} else if (currentRoute === '/') {
-				if (window.innerWidth >= 768) navbarElem.classList.add('translate-x-[-40px]')
+				if (screenSize >= 768) navbarElem.classList.add('translate-x-[-40px]')
 				navbarItems = navbarWithoutHome
 			}
 		}
@@ -201,28 +183,28 @@
 	]
 </script>
 
+<svelte:window bind:innerWidth={screenSize} />
+
 <div
 	class="flex relative w-full h-screen lg:justify-center overflow-y-scrolld lg:overflow-hidden tracking-wider font-light text-slate-200 bg-port-bg">
-	<!-- <div class="fixed top-0 w-full bg-port-bg dbg-white/20 z-50 h-[124px]" /> -->
 	<div
 		class="flex flex-col lg:flex-row lg:justify-center w-full lg:max-w-[1650px] h-full lg:h-screen p-4 py-0 lg:py-4">
 		<!-- colocar um transition com translate simples aqui que muda se a rota for '/' ou '/alguma-coisa' -->
 		<section
 			bind:this={headerElem}
-			class="flex flex-cold w-fulld items-center jitems-start lg:flex-row sticky top-0 bg-port-bg w-screend py-4 z-50 dmin-w-[75%] lg:min-w-[45%] justify-between lg:h-full mb-8 lg:mb-0 lg:-translate-y-8 lg:items-center">
+			class="sticky flex items-center lg:flex-row top-0 bg-port-bg py-4 z-50 lg:min-w-[45%] justify-between lg:h-full mb-8 lg:mb-0 lg:-translate-y-8 lg:items-center">
 			<!-- esparadrapo de fundo -->
-			<div class="absolute flex md:hidden w-screen h-[124px] top-0 z-40 bg-port-bg" />
+			<div
+				class="absolute flex md:hidden w-screen h-[124px] top-0 left-0 z-40 translate-x-[-1px] bg-port-bg dbg-white/30" />
 			<div bind:this={titleElem} class="flex flex-col w-fulld mr-auto ml-0 z-50 gap-2 lg:gap-1">
 				<!-- title -->
-				<!-- <div class="flex flex-col gap-1"> -->
 				<h1 class=" font-thin text-6xl text-[3.5rem] tracking-normal whitespace-nowrap font-red-hat">
 					Luiz Comparin
 				</h1>
-				<!-- </div> -->
 				<!-- subtitle & links -->
 				<div
-					class="flex lg:flex-col max-w-[345px] justify-betweend dlg:justify-normal gap-8 px-1 lg:px-0 lg:gap-6">
-					<h2 class="mr-auto text-slate-200/70">Programador web full-stack</h2>
+					class="flex lg:flex-col max-w-[345px] justify-betweend dlg:justify-normal gap-2d px-1 lg:px-0 lg:gap-6">
+					<h2 class="mr-auto whitespace-nowrap text-slate-200/70">Programador web full-stack</h2>
 					<!-- links -->
 					<div class="flex gap-4 text-2xl text-slate-200/50">
 						<!-- linkedin -->
@@ -241,7 +223,7 @@
 						<button
 							data-tooltip={$languageStore.language === 'pt' ? 'Trocar idioma' : 'Switch language'}
 							on:click={languageStore.switchLanguage}
-							class="text-lg translate-y-[-2px] transition-all hover:text-slate-200">
+							class="text-lg h-fit translate-y-[-2px] transition-all hover:text-slate-200">
 							<span>{$languageStore.language.toUpperCase()}</span>
 						</button>
 					</div>
@@ -249,7 +231,8 @@
 			</div>
 
 			<!-- navbar (desktop) -->
-			{#if window.innerWidth >= 768}
+			{#if screenSize - 16 >= 768}
+				<!-- minus 16px because esparadrapo at line 200 is breaking the window innerWidth -->
 				<div
 					bind:this={navbarElem}
 					class="flex lg:flex-col lg:gap-4 lg:w-screen lg:min-w-[110px] lg:max-w-[110px] lg:mr-16">
@@ -274,7 +257,7 @@
 			{/if}
 		</section>
 
-		{#if window.innerWidth >= 1024}
+		{#if screenSize >= 1024}
 			{#if data.url !== '/'}
 				<!-- style="max-width:{absoluteWidth}px;"
 				in:slide|local={{ x: 200, duration: 700, delay: 200 }}
@@ -301,7 +284,7 @@
 			{/if}
 		{/if}
 
-		{#if window.innerWidth < 1024}
+		{#if screenSize < 1024}
 			{#if data.url !== '/'}
 				<!-- style="max-width:{absoluteWidth}px;"
 				in:slide|local={{ x: 200, duration: 700, delay: 200 }}
@@ -329,8 +312,8 @@
 		{/if}
 	</div>
 	<!-- navbar (mobile) -->
-	{#if window.innerWidth < 768}
-		<!-- <div class="absolute w-full h-full bg-white/10"> -->
+	{#if screenSize - 16 < 768}
+		<!-- minus 16px because esparadrapo at line 200 is breaking the window innerWidth -->
 		<div bind:this={navbarElem} class="flex z-50 bg-port-bg fixed justify-around px-4 w-full bottom-0">
 			{#each navbarItems as item}
 				<a
@@ -349,6 +332,5 @@
 				</a>
 			{/each}
 		</div>
-		<!-- </div> -->
 	{/if}
 </div>
