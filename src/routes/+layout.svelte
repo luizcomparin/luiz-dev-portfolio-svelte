@@ -8,6 +8,7 @@
 	import { fly, slide } from 'svelte/transition'
 	import openInNew from '@iconify/icons-mdi/open-in-new'
 	import { onMount } from 'svelte'
+	import { languageStore } from '$lib/languageStore'
 
 	export let data
 
@@ -37,11 +38,13 @@
 						easing: 'ease-out',
 					})
 
-					setTimeout(() => {
-						navbarItems = fullNavbarItems
-					}, 399)
+					// setTimeout(() => {
+					// updateNavbar()
+					// navbarItems = fullNavbarItems
+					// }, 399)
 				} else if (currentRoute === '/') {
-					navbarItems = navbarWithoutHome
+					// navbarItems = navbarWithoutHome
+					// updateNavbar()
 				}
 
 				// centraliza
@@ -56,6 +59,7 @@
 						animation.cancel()
 					}, 699)
 				}
+				updateNavbar()
 
 				lastRoute = page.url.pathname
 			}
@@ -73,12 +77,14 @@
 						}
 					)
 
+					// updateNavbar()
 					setTimeout(() => {
 						headerElem.classList.remove('flex-col')
 						titleElem.classList.add('w-full', 'mr-auto')
 						titleElem.classList.remove('mb-10')
-						navbarElem.classList.remove('translate-x-[-40px]')
-						navbarItems = fullNavbarItems
+
+						// navbarElem.classList.remove('translate-x-[-40px]')
+						// navbarItems = fullNavbarItems
 					}, 399)
 				} else if (currentRoute === '/') {
 					headerElem.classList.add('translate-y-[250px]')
@@ -86,9 +92,10 @@
 					headerElem.classList.add('flex-col')
 					titleElem.classList.remove('w-full', 'mr-auto')
 					titleElem.classList.add('mb-10')
-					if (window.innerWidth >= 768) navbarElem.classList.add('translate-x-[-40px]')
 
-					navbarItems = navbarWithoutHome
+					// updateNavbar()
+					// if (window.innerWidth >= 768) navbarElem.classList.add('translate-x-[-40px]')
+					// navbarItems = navbarWithoutHome
 				}
 
 				// centraliza
@@ -108,84 +115,36 @@
 						titleElem.classList.add('mb-10')
 					}, 699)
 				}
+				updateNavbar()
 
 				lastRoute = page.url.pathname
 			}
 		})
 	})
 
-	// let firstPos: DOMRect
-	// let lastPos: DOMRect
-	// onMount(() => {
-	// 	firstPos = headerElem.getBoundingClientRect()
-	// 	lastPos = headerElem.getBoundingClientRect()
-	// })
-	// function slideTitle(dataUrl: string) {
-	// 	// console.log('ccccc', $page.url)
-	// 	if (!headerElem) return
+	function updateNavbar() {
+		if (window.innerWidth >= 1024) {
+			if (lastRoute === '/' && currentRoute !== '/') {
+				setTimeout(() => {
+					navbarItems = fullNavbarItems
+				}, 399)
+			} else if (currentRoute === '/') {
+				navbarItems = navbarWithoutHome
+			}
+		}
 
-	// 	if (dataUrl === '/') {
-	// 		firstPos = headerElem.getBoundingClientRect()
-	// 	} else lastPos = headerElem.getBoundingClientRect()
-
-	// 	console.log('rodou')
-	// 	requestAnimationFrame(() => {
-	// 		const invert = firstPos.left + lastPos.left
-
-	// 		setTimeout(() => {
-	// 			const animation = headerElem.animate([{ translate: `${invert}px` }, { translate: '0px' }], {
-	// 				duration: 400,
-	// 				fill: 'forwards',
-	// 				easing: 'ease-out',
-	// 			})
-	// 		}, 0)
-	// 	})
-	// }
-
-	// onMount(() => {
-	// 	const handleResize = (event: any) => {
-	// 		absoluteElementWrapper = document.getElementById('absoluteWrapper')!
-	// 		relativeElementWrapper = document.getElementById('relativeWrapper')!
-
-	// 		updaterelativeWidth()
-	// 		console.log('relativeWidth', relativeWidth)
-	// 		console.log('absoluteWidth', absoluteWidth)
-	// 	}
-
-	// 	window.addEventListener('resize', handleResize)
-
-	// 	return () => {
-	// 		// this function is called when the component is destroyed
-	// 		window.removeEventListener('resize', handleResize)
-	// 	}
-	// })
-
-	// function updaterelativeWidth() {
-	// 	relativeWidth = absoluteElementWrapper?.offsetWidth
-	// }
-
-	// function slide(
-	// 	node: Element,
-	// 	{ x = 200, delay = 0, duration = 300, easing = cubicIn } = {},
-	// 	{ direction = 'both' } = {}
-	// ) {
-	// 	const origin = {
-	// 		in: 'bottom left',
-	// 		out: 'bottom right',
-	// 		both: 'center center',
-	// 	}
-
-	// 	return {
-	// 		delay,
-	// 		x,
-	// 		duration,
-	// 		easing,
-	// 		// t vai de 0 a 1
-	// 		css: (t: any) => `
-	// 			transform: translateX(${x}px);
-	// 		`,
-	// 	}
-	// }
+		if (window.innerWidth < 1024) {
+			if (lastRoute === '/' && currentRoute !== '/') {
+				setTimeout(() => {
+					navbarElem.classList.remove('translate-x-[-40px]')
+					navbarItems = fullNavbarItems
+				}, 399)
+			} else if (currentRoute === '/') {
+				if (window.innerWidth >= 768) navbarElem.classList.add('translate-x-[-40px]')
+				navbarItems = navbarWithoutHome
+			}
+		}
+	}
 
 	let navbarItems = [
 		{
@@ -210,6 +169,7 @@
 		{
 			href: '/',
 			name: 'Início',
+			// name: $languageStore.language === 'pt' ? 'Início' : 'Start',
 		},
 		{
 			href: '/sobre',
@@ -273,10 +233,17 @@
 							><Icon icon={githubIcon} class="transition-all hover:text-slate-200" /></a>
 						<!-- curriculo -->
 						<a
-							data-tooltip="Currículo"
+							data-tooltip={$languageStore.language === 'pt' ? 'Currículo' : 'Resume'}
 							target="_blank"
 							href="https://docs.google.com/document/d/1SGo5bznVNbYAvXdWRFAjr6bvMsN9NdIJ/edit?usp=sharing&ouid=116223724619846332888&rtpof=true&sd=true"
 							><Icon icon={openInNew} class="transition-all hover:text-slate-200" /></a>
+						<!-- idioma -->
+						<button
+							data-tooltip={$languageStore.language === 'pt' ? 'Trocar idioma' : 'Switch language'}
+							on:click={languageStore.switchLanguage}
+							class="text-lg translate-y-[-2px] transition-all hover:text-slate-200">
+							<span>{$languageStore.language.toUpperCase()}</span>
+						</button>
 					</div>
 				</div>
 			</div>
