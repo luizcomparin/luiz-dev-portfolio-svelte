@@ -5,16 +5,20 @@ const config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				'red-hat': "'Red Hat Display',sans-serif"
+				'red-hat': "'Red Hat Display',sans-serif",
 			},
 			colors: {
 				'port-bg': '#283845',
-				'port-bg2': '#173954'
-			}
-		}
+				'port-bg2': '#173954',
+			},
+			dropShadow: {
+				'luiz-md': '0px 0px 5px #00000050',
+				'luiz-lg': '0px 0px 10px #00000040',
+			},
+		},
 	},
 
-	plugins: []
-};
+	plugins: [],
+}
 
-module.exports = config;
+module.exports = config
