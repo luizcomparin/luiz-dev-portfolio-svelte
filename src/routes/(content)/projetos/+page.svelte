@@ -6,16 +6,20 @@
 	import expressIcon from '@iconify/icons-simple-icons/express'
 	import svelteIcon from '@iconify/icons-simple-icons/svelte'
 	import firebaseIcon from '@iconify/icons-simple-icons/firebase'
-	import { fly } from 'svelte/transition'
-	import { cubicIn } from 'svelte/easing'
+	import { languageStore } from '$lib/languageStore'
+	import nextdotjsIcon from '@iconify/icons-simple-icons/nextdotjs'
+	import mongodbIcon from '@iconify/icons-simple-icons/mongodb'
+	import googlecloudIcon from '@iconify/icons-simple-icons/googlecloud'
+	import css3Icon from '@iconify/icons-simple-icons/css3'
+	import html5Icon from '@iconify/icons-simple-icons/html5'
 
-	const pages = [
+	let pages = [
 		{
 			href: 'https://navalha.app.br/',
 			image_src: '/images/home-page-print.png',
 			title: 'Navalha app',
 			project_info:
-				'PWA desenvolvido para servir como landing page e plataforma de confirmação de agendamentos para o aplicativo Navalha.',
+				'Webapp com intuito de servir como landing page e plataforma de confirmação de agendamentos para o aplicativo Navalha.',
 			icons: [
 				{
 					tooltip: 'Angular 15',
@@ -25,25 +29,61 @@
 					tooltip: 'Node + Express',
 					icon_html: expressIcon,
 				},
+				{
+					tooltip: 'HTML5',
+					icon_html: html5Icon,
+				},
+				{
+					tooltip: 'CSS3',
+					icon_html: css3Icon,
+				},
 			],
 		},
 		{
-			href: 'https://lambreta-rental-svelte.web.app/',
+			href: 'https://lambretafilmesrental.web.app/',
 			image_src: '/images/lambreta-rental-print.png',
 			title: 'Lambreta Rental',
-			project_info: 'Website em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.',
+			project_info: 'Webapp em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.',
 			icons: [
 				{
 					tooltip: 'SvelteKit',
 					icon_html: svelteIcon,
 				},
 				{
+					tooltip: 'Node + Express',
+					icon_html: expressIcon,
+				},
+				{
+					tooltip: 'Next.js + React',
+					icon_html: nextdotjsIcon,
+				},
+				{
+					tooltip: 'MongoDB',
+					icon_html: mongodbIcon,
+				},
+				{
 					tooltip: 'Firebase',
 					icon_html: firebaseIcon,
+				},
+				{
+					tooltip: 'Google Cloud',
+					icon_html: googlecloudIcon,
 				},
 			],
 		},
 	]
+
+	languageStore.subscribe(store => {
+		if (store.language === 'pt') {
+			pages[0].project_info =
+				'Webapp com intuito de servir como landing page e plataforma de confirmação de agendamentos para o aplicativo Navalha.'
+			pages[1].project_info = 'Webapp em estilo e-commerce para aluguel de filmadoras e equipamentos de filmagem.'
+		} else {
+			pages[0].project_info =
+				'Webapp developed to serve as landing page and schedule confirmation platform to the app Navalha.'
+			pages[1].project_info = 'E-commerce-like website for renting cameras and professional filming equipment.'
+		}
+	})
 </script>
 
 <svelte:head>
@@ -53,10 +93,13 @@
 <section
 	class=" mb-[60px] md:mb-0 flex flex-col overflow-y-scroll h-full lg:mt-32 lg:pb-12 lg:-translate-y-8 w-screen max-w-[900px] gap-6">
 	<div>
-		<h1 class="text-4xl text-[2.25em] mr-auto">Projetos</h1>
+		<h1 class="text-4xl text-[2.25em] mr-auto">{$languageStore.language === 'pt' ? 'Projetos' : 'Projects'}</h1>
 		<h2>
-			Estes são meus projetos reais. Clique no <Icon icon={informationVariant} class="text-xl inline-block" /> em cada
-			projeto para saber mais.
+			{$languageStore.language === 'pt'
+				? 'Estes são meus projetos reais. Toque o'
+				: 'These are my real projects. Touch the'}
+			<Icon icon={informationVariant} class="text-xl inline-block" />
+			{$languageStore.language === 'pt' ? 'em cada projeto para saber mais.' : 'in each project to know more.'}
 		</h2>
 	</div>
 	{#each pages as page}
@@ -96,10 +139,10 @@
 							</span>
 						{/each}
 
-						{#if pages[1].title === page.title}
+						<!-- {#if pages[1].title === page.title}
 							<span class="absolute text-xs font-semibold bottom-[1.2rem]d left-[4.25rem] text-[crimson]"
-								>em desenvolvimento</span>
-						{/if}
+								>{$languageStore.language === 'pt' ? 'em desenvolvimento' : 'in development'}</span>
+						{/if} -->
 					</div>
 				</div>
 				<!-- info icon -->
@@ -118,8 +161,6 @@
 </section>
 
 <style>
-	/* fazer anim,ação do i girando a cada 2 segundos */
-
 	.info-animation {
 		/* animation: myAnim 2s ease 0s 1 normal ; */
 		animation-name: info-swing;

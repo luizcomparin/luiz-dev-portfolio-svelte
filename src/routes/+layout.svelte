@@ -104,7 +104,46 @@
 		})
 	})
 
+	function handleLanguageSwitch() {
+		languageStore.switchLanguage()
+		updateNavbar()
+	}
+
 	function updateNavbar() {
+		const fullNavbarItems = [
+			{
+				href: '/',
+				name: $languageStore.language === 'pt' ? 'Início' : 'Home',
+			},
+			{
+				href: '/sobre',
+				name: $languageStore.language === 'pt' ? 'Sobre' : 'About',
+			},
+			{
+				href: '/projetos',
+				name: $languageStore.language === 'pt' ? 'Projetos' : 'Projects',
+			},
+			{
+				href: '/contato',
+				name: $languageStore.language === 'pt' ? 'Contato' : 'Contact',
+			},
+		]
+
+		const navbarWithoutHome = [
+			{
+				href: '/sobre',
+				name: $languageStore.language === 'pt' ? 'Sobre' : 'About',
+			},
+			{
+				href: '/projetos',
+				name: $languageStore.language === 'pt' ? 'Projetos' : 'Projects',
+			},
+			{
+				href: '/contato',
+				name: $languageStore.language === 'pt' ? 'Contato' : 'Contact',
+			},
+		]
+
 		if (screenSize >= 1024) {
 			if (lastRoute === '/' && currentRoute !== '/') {
 				setTimeout(() => {
@@ -112,7 +151,7 @@
 				}, 399)
 			} else if (currentRoute === '/') {
 				navbarItems = navbarWithoutHome
-			}
+			} else navbarItems = fullNavbarItems
 		}
 
 		if (screenSize < 1024) {
@@ -124,7 +163,7 @@
 			} else if (currentRoute === '/') {
 				if (screenSize >= 768) navbarElem.classList.add('translate-x-[-40px]')
 				navbarItems = navbarWithoutHome
-			}
+			} else navbarItems = fullNavbarItems
 		}
 	}
 
@@ -146,65 +185,35 @@
 			name: 'Contato',
 		},
 	]
-
-	const fullNavbarItems = [
-		{
-			href: '/',
-			name: 'Início',
-			// name: $languageStore.language === 'pt' ? 'Início' : 'Start',
-		},
-		{
-			href: '/sobre',
-			name: 'Sobre',
-		},
-		{
-			href: '/projetos',
-			name: 'Projetos',
-		},
-		{
-			href: '/contato',
-			name: 'Contato',
-		},
-	]
-
-	const navbarWithoutHome = [
-		{
-			href: '/sobre',
-			name: 'Sobre',
-		},
-		{
-			href: '/projetos',
-			name: 'Projetos',
-		},
-		{
-			href: '/contato',
-			name: 'Contato',
-		},
-	]
 </script>
 
 <svelte:window bind:innerWidth={screenSize} />
 
 <div
-	class="flex relative w-full h-screen lg:justify-center overflow-y-scrolld lg:overflow-hidden tracking-wider font-light text-slate-200 bg-port-bg">
+	class="flex relative w-full h-screen lg:justify-center overflow-y-scrolld lg:overflow-hidden tracking-wider font-light text-slate-200 bg-port-bgdd">
 	<div
 		class="flex flex-col lg:flex-row lg:justify-center w-full lg:max-w-[1650px] h-full lg:h-screen p-4 py-0 lg:py-4">
 		<!-- colocar um transition com translate simples aqui que muda se a rota for '/' ou '/alguma-coisa' -->
 		<section
 			bind:this={headerElem}
-			class="sticky flex items-center lg:flex-row top-0 bg-port-bg py-4 z-50 lg:min-w-[45%] justify-between lg:h-full mb-8 lg:mb-0 lg:-translate-y-8 lg:items-center">
+			class="sticky flex items-center lg:flex-row top-0 bg-port-bgd py-4 z-50 lg:min-w-[45%] justify-between lg:h-full mb-8 lg:mb-0 lg:-translate-y-8 lg:items-center">
 			<!-- esparadrapo de fundo -->
 			<div
-				class="absolute flex md:hidden w-screen h-[124px] top-0 left-0 z-40 translate-x-[-1px] bg-port-bg dbg-white/30" />
+				class="absolute flex md:hidden w-screen h-[124px] top-0 left-0 z-40 translate-x-[-1px] bg-port-bgd dbg-white/30" />
 			<div bind:this={titleElem} class="flex flex-col w-fulld mr-auto ml-0 z-50 gap-2 lg:gap-1">
 				<!-- title -->
-				<h1 class=" font-thin text-6xl text-[3.5rem] tracking-normal whitespace-nowrap font-red-hat">
+				<h1
+					class=" font-thin text-6xl text-[3.5rem] tracking-normal whitespace-nowrap font-red-hat drop-shadow-xl">
 					Luiz Comparin
 				</h1>
 				<!-- subtitle & links -->
 				<div
 					class="flex lg:flex-col max-w-[345px] justify-betweend dlg:justify-normal gap-2d px-1 lg:px-0 lg:gap-6">
-					<h2 class="mr-auto whitespace-nowrap text-slate-200/70">Programador web full-stack</h2>
+					<h2 class="mr-auto whitespace-nowrap text-slate-200/70">
+						{$languageStore.language === 'pt'
+							? 'Desenvolvedor full-stack'
+							: 'Full-stack software developer'}
+					</h2>
 					<!-- links -->
 					<div class="flex gap-4 text-2xl text-slate-200/50">
 						<!-- linkedin -->
@@ -222,7 +231,7 @@
 						<!-- idioma -->
 						<button
 							data-tooltip={$languageStore.language === 'pt' ? 'Trocar idioma' : 'Switch language'}
-							on:click={languageStore.switchLanguage}
+							on:click={handleLanguageSwitch}
 							class="text-lg h-fit translate-y-[-2px] transition-all hover:text-slate-200">
 							<span>{$languageStore.language.toUpperCase()}</span>
 						</button>

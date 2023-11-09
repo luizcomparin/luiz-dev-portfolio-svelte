@@ -10,6 +10,7 @@
 	import openInNew from '@iconify/icons-mdi/open-in-new'
 	import { fly } from 'svelte/transition'
 	import { cubicIn } from 'svelte/easing'
+	import { languageStore } from '$lib/languageStore'
 
 	let whatsappCopy: HTMLElement
 	let emailCopy: HTMLElement
@@ -53,8 +54,12 @@
 <div id="whatsappClipboard" />
 <section class=" mb-[60px] md:mb-0 overflow-x-hidden w-full flex flex-col lg:-translate-y-8 gap-12">
 	<div class="flex flex-col gap-1">
-		<h1 class="text-4xl text-[2.25em]">Formas de contato</h1>
-		<h2 class="!text-base">Sinta-se livre para me chamar por qualquer um dos meios abaixo, a qualquer hora:</h2>
+		<h1 class="text-4xl text-[2.25em]">{$languageStore.language === 'pt' ? 'Formas de contato' : 'Contact'}</h1>
+		<h2 class="!text-base">
+			{$languageStore.language === 'pt'
+				? 'Sinta-se livre para me chamar por qualquer um dos meios abaixo, a qualquer hora:'
+				: 'Feel free to contact me through any of the means below, at any time:'}
+		</h2>
 	</div>
 
 	<div>
@@ -63,14 +68,14 @@
 			<a href="mailto:luizcomparin18@gmail.com" target="_blank" class="pr-2 borderd rounded-l-md hover:underline"
 				>luizcomparin18@gmail.com</a>
 			<a
-				data-tooltip="Enviar e-mail"
+				data-tooltip={$languageStore.language === 'pt' ? 'Enviar e-mail' : 'Send e-mail'}
 				href="mailto:luizcomparin18@gmail.com"
 				target="_blank"
 				class="py-2 px-2 borderd border-l-0 group">
 				<Icon icon={paperPlane} class="transition-all group-hover:scale-125" />
 			</a>
 			<button
-				data-tooltip="Copiar"
+				data-tooltip={$languageStore.language === 'pt' ? 'Copiar' : 'Copy'}
 				on:click={handleEmailCopy}
 				class="relative py-2 px-2 borderd border-l-0 rounded-r-md group">
 				<Icon icon={copyIcon} class="transition-all group-hover:scale-125" />
@@ -78,7 +83,7 @@
 					bind:this={emailCopy}
 					class="absolute w-fit whitespace-nowrap flex items-center gap-1 opacity-0 transition-all pointer-events-none h-fit left-full top-0 bottom-0 my-auto d-translate-x-1 rounded-md px-2 py-1 text-sm bg-black">
 					<Icon icon={checkIcon} class="text-xl" />
-					E-mail copiado!
+					{$languageStore.language === 'pt' ? 'E-mail copiado!' : 'E-mail copied!'}
 				</div>
 			</button>
 		</div>
@@ -89,14 +94,14 @@
 		<div class="flex w-fit gap-4d items-center">
 			<a href="https://wa.me/5547992831801" target="_blank" class="pr-2 hover:underline">(47) 9 9283-1801</a>
 			<a
-				data-tooltip="Enviar mensagem"
+				data-tooltip={$languageStore.language === 'pt' ? 'Enviar mensagem' : 'Send message'}
 				href="https://wa.me/5547992831801"
 				target="_blank"
 				class="py-2 px-2 borderd border-l-0 group">
 				<Icon icon={paperPlane} class="transition-all group-hover:scale-125" />
 			</a>
 			<button
-				data-tooltip="Copiar"
+				data-tooltip={$languageStore.language === 'pt' ? 'Copiar' : 'Copy'}
 				on:click={handleWhatsappCopy}
 				class="relative py-2 px-2 borderd border-l-0 rounded-r-md group">
 				<Icon icon={copyIcon} class="transition-all group-hover:scale-125" />
@@ -104,7 +109,7 @@
 					bind:this={whatsappCopy}
 					class="absolute w-fit whitespace-nowrap flex items-center gap-1 opacity-0 transition-all pointer-events-none h-fit left-full top-0 bottom-0 my-auto d-translate-x-1 rounded-md px-2 py-1 text-sm bg-black">
 					<Icon icon={checkIcon} class="text-xl" />
-					Whatsapp copiado!
+					{$languageStore.language === 'pt' ? 'Whatsapp copiado!' : 'Whatsapp copied!'}
 				</div>
 			</button>
 		</div>
